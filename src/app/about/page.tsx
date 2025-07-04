@@ -27,7 +27,7 @@ const About = () => {
                 <h2 className="text-3xl font-bold mb-6">Our Story</h2>
                 <div className="space-y-4">
                   <p className="text-lg">
-                    Safe Clean Maids was founded in 2010 with a simple mission: to provide exceptional cleaning services that people could trust and rely on consistently.
+                    Safe Clean Maids was founded in 2023 with a simple mission: to provide exceptional cleaning services that people could trust and rely on consistently.
                   </p>
                   <p>
                     What began as a small family operation has grown into a trusted cleaning service provider with a team of dedicated professionals who share our passion for cleanliness and customer satisfaction.
