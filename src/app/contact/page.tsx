@@ -69,7 +69,7 @@ const Contact = () => {
               <div>
                 <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
                 <p className="text-gray-600 mb-8">
-                  We're here to help with any questions you might have about our services or to schedule a cleaning appointment.
+                  We&apos;re here to help with any questions you might have about our services or to schedule a cleaning appointment.
                 </p>
                 
                 <div className="space-y-6">
@@ -94,7 +94,7 @@ const Contact = () => {
                       <div>
                         <h3 className="font-medium mb-1">Email</h3>
                         <p className="text-gray-600">info@safecleanmaids.com</p>
-                        <p className="text-sm text-gray-500 mt-1">We'll respond as soon as possible</p>
+                        <p className="text-sm text-gray-500 mt-1">We&apos;ll respond as soon as possible</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -288,7 +288,7 @@ const Contact = () => {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Ready for a Spotless Space?</h2>
             <p className="text-xl text-blue-100 mb-8">
-              Don't wait another day. Contact us now and experience the Safe Clean Maids difference!
+              Don&apos;t wait another day. Contact us now and experience the Safe Clean Maids difference!
             </p>
             <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
               <a href="tel:5551234567">Call (555) 123-4567</a>

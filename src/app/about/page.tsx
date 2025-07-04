@@ -33,10 +33,10 @@ const About = () => {
                     What began as a small family operation has grown into a trusted cleaning service provider with a team of dedicated professionals who share our passion for cleanliness and customer satisfaction.
                   </p>
                   <p>
-                    Over the years, we've refined our techniques, adopted eco-friendly practices, and maintained our commitment to treating each home and business as if it were our own.
+                    Over the years, we&apos;ve refined our techniques, adopted eco-friendly practices, and maintained our commitment to treating each home and business as if it were our own.
                   </p>
                   <p>
-                    Today, we're proud to be one of the most trusted cleaning services in the area, with thousands of satisfied customers who appreciate our attention to detail and consistent quality.
+                    Today, we&apos;re proud to be one of the most trusted cleaning services in the area, with thousands of satisfied customers who appreciate our attention to detail and consistent quality.
                   </p>
                 </div>
               </div>
@@ -156,7 +156,7 @@ const About = () => {
                 <h2 className="text-3xl font-bold mb-6">Our Approach</h2>
                 <div className="space-y-4">
                   <p className="text-lg">
-                    At Safe Clean Maids, we believe that exceptional cleaning is about more than just removing dirt—it's about creating healthy, comfortable spaces where people can thrive.
+                    At Safe Clean Maids, we believe that exceptional cleaning is about more than just removing dirt—it&apos;s about creating healthy, comfortable spaces where people can thrive.
                   </p>
                   <p>
                     Our comprehensive approach includes:
@@ -191,7 +191,7 @@ const About = () => {
           <div className="max-w-3xl mx-auto text-center mb-12">
             <h2 className="text-3xl font-bold mb-4">Our Certifications</h2>
             <p className="text-lg text-gray-600">
-              We're proud to maintain industry certifications that reflect our commitment to excellence.
+              We&apos;re proud to maintain industry certifications that reflect our commitment to excellence.
             </p>
           </div>
 
@@ -218,7 +218,7 @@ const About = () => {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Experience the Safe Clean Maids Difference</h2>
             <p className="text-xl text-blue-100 mb-8">
-              Join our family of satisfied customers and discover why we're the trusted choice for cleaning services.
+              Join our family of satisfied customers and discover why we&apos;re the trusted choice for cleaning services.
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">

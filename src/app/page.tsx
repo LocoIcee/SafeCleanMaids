@@ -183,7 +183,7 @@ const Home = () => {
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">What Our Customers Say</h2>
             <p className="text-lg text-gray-600">
-              Don't just take our word for it — hear from some of our satisfied customers.
+              Don&apos;t just take our word for it — hear from some of our satisfied customers.
             </p>
           </div>
 
@@ -214,7 +214,7 @@ const Home = () => {
                       ))}
                     </div>
                     <blockquote className="flex-grow">
-                      <p className="text-gray-600 italic mb-6">"{testimonial.quote}"</p>
+                      <p className="text-gray-600 italic mb-6">&quot;{testimonial.quote}&quot;</p>
                     </blockquote>
                     <div className="mt-auto">
                       <p className="font-semibold">{testimonial.author}</p>
