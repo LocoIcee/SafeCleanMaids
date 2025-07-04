@@ -1,3 +1,4 @@
+'use client'
 import { ArrowRight, Check, Clock, Home as HomeIcon, Star, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -170,7 +171,7 @@ const Home = () => {
 
           <div className="mt-12 text-center">
             <Button asChild variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-              <Link to="/services">View All Services</Link>
+              <Link href="/services">View All Services</Link>
             </Button>
           </div>
         </div>
@@ -291,19 +292,7 @@ const Home = () => {
         </div>
       </section>
 
-      <style jsx>{`
-        .mask-wave-after::after {
-          content: "";
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 100%;
-          height: 48px;
-          background-image: url('data:image/svg+xml;charset=utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 1440 48%22 preserveAspectRatio=%22none%22%3E%3Cpath fill=%22white%22 d=%22M0,48 L1440,48 L1440,0 C1380,20 1320,48 1200,48 C1080,48 1020,0 900,0 C780,0 720,48 600,48 C480,48 420,0 300,0 C180,0 120,48 0,48 Z%22/%3E%3C/svg%3E');
-          background-size: cover;
-          background-position: center;
-        }
-      `}</style>
+      
     </div>
   );
 };

@@ -1,4 +1,3 @@
-'use client';
 import Layout from "@/components/layout/Layout";
 import "./globals.css";
 import "./index.css"
@@ -6,8 +5,7 @@ import "./index.css"
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body
-      >
+      <body>
         <Layout>
           {children}
         </Layout>
