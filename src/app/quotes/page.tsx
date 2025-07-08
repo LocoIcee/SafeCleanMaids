@@ -131,9 +131,9 @@ const Quotes = () => {
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="bg-blue-600 py-20 text-white">
+      <section className="bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 py-20 text-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
+          <div className="max-w-3xl mx-auto text-center fade-in-up">
             <h1 className="text-4xl font-bold mb-4">Get a Free Cleaning Quote</h1>
             <p className="text-xl text-blue-100">
               Tell us about your space and needs, and we&apos;ll provide a custom quote for our professional cleaning services.
@@ -191,7 +191,10 @@ const Quotes = () => {
                 ]
               }
             ].map((option, idx) => (
-              <Card key={idx} className="border-blue-100 shadow-sm hover:shadow-md transition-all text-center">
+              <Card
+                key={idx}
+                className="border-blue-100 shadow-sm hover:shadow-lg transform transition-transform hover:-translate-y-1 text-center fade-in-up"
+              >
                 <CardContent className="pt-6">
                   <div className="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-full bg-blue-50">
                     {option.icon}
@@ -228,7 +231,7 @@ const Quotes = () => {
               </p>
             </div>
 
-            <div className="bg-white p-8 rounded-lg shadow-md">
+            <div className="bg-white p-8 rounded-lg shadow-md fade-in-up">
               <Tabs value={propertyType} onValueChange={setPropertyType} className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-8">
                   <TabsTrigger value="residential" className="text-base">
@@ -505,7 +508,7 @@ const Quotes = () => {
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {pricingFactors.map((factor, idx) => (
-                <div key={idx} className="flex flex-col items-center text-center">
+                <div key={idx} className="flex flex-col items-center text-center fade-in-up">
                   <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center mb-4">
                     {factor.icon}
                   </div>
@@ -520,9 +523,9 @@ const Quotes = () => {
 
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-400 text-white">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto fade-in-up">
             <h2 className="text-3xl font-bold mb-6">Ready to get started?</h2>
             <p className="text-xl text-blue-100 mb-8">
               Request your quote today and experience the Safe Clean Maids difference.
@@ -536,5 +539,4 @@ const Quotes = () => {
     </div>
   );
 };
-
 export default Quotes;
