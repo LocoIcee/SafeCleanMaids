@@ -326,11 +326,11 @@ const Quotes = () => {
                               <SelectValue placeholder="Select bedrooms" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="1">1 Bedroom</SelectItem>
-                              <SelectItem value="2">2 Bedrooms</SelectItem>
-                              <SelectItem value="3">3 Bedrooms</SelectItem>
-                              <SelectItem value="4">4 Bedrooms</SelectItem>
-                              <SelectItem value="5+">5+ Bedrooms</SelectItem>
+                              <SelectItem className="bg-white" value="1">1 Bedroom</SelectItem>
+                              <SelectItem className="bg-white" value="2">2 Bedrooms</SelectItem>
+                              <SelectItem className="bg-white" value="3">3 Bedrooms</SelectItem>
+                              <SelectItem className="bg-white" value="4">4 Bedrooms</SelectItem>
+                              <SelectItem className="bg-white" value="5+">5+ Bedrooms</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -344,10 +344,10 @@ const Quotes = () => {
                               <SelectValue placeholder="Select bathrooms" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="1">1 Bathroom</SelectItem>
-                              <SelectItem value="2">2 Bathrooms</SelectItem>
-                              <SelectItem value="3">3 Bathrooms</SelectItem>
-                              <SelectItem value="4+">4+ Bathrooms</SelectItem>
+                              <SelectItem className="bg-white" value="1">1 Bathroom</SelectItem>
+                              <SelectItem className="bg-white" value="2">2 Bathrooms</SelectItem>
+                              <SelectItem className="bg-white" value="3">3 Bathrooms</SelectItem>
+                              <SelectItem className="bg-white" value="4+">4+ Bathrooms</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -387,11 +387,11 @@ const Quotes = () => {
                               <SelectValue placeholder="Select business type" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="office">Office Space</SelectItem>
-                              <SelectItem value="retail">Retail Store</SelectItem>
-                              <SelectItem value="medical">Medical Facility</SelectItem>
-                              <SelectItem value="restaurant">Restaurant</SelectItem>
-                              <SelectItem value="other">Other</SelectItem>
+                              <SelectItem className="bg-white" value="office">Office Space</SelectItem>
+                              <SelectItem className="bg-white" value="retail">Retail Store</SelectItem>
+                              <SelectItem className="bg-white" value="medical">Medical Facility</SelectItem>
+                              <SelectItem className="bg-white" value="restaurant">Restaurant</SelectItem>
+                              <SelectItem className="bg-white" value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
