@@ -28,7 +28,7 @@ const Home = () => {
                 <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
                   <Link href="/contact">Book Now</Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-blue-500">
+                <Button asChild variant="outline" size="lg" className="border-white bg-white text-blue-600 hover:bg-blue-500 hover:text-white hover:border-blue-500 ">
                   <Link href="/services">Our Services</Link>
                 </Button>
               </div>
@@ -231,8 +231,8 @@ const Home = () => {
       {/* CTA Section */}
       <section className="py-16 bg-blue-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6">Ready for a Cleaner Space?</h2>
+          <div className="max-w-3xl mx-auto">Ready
+            <h2 className="text-3xl font-bold mb-6"> for a Cleaner Space?</h2>
             <p className="text-xl text-blue-100 mb-8">
               Book your cleaning service today and experience the Safe Clean Maids difference.
             </p>
@@ -240,7 +240,7 @@ const Home = () => {
               <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
                 <Link href="/contact">Schedule Now</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white text-white hover:bg-blue-500">
+              <Button asChild variant="outline" size="lg" className="border-white bg-white text-blue-600 hover:text-white hover:bg-blue-600 hover:border-blue-600">
                 <Link href="/contact">Get a Quote</Link>
               </Button>
             </div>

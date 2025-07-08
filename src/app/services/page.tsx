@@ -1,10 +1,23 @@
+'use client'; // This directive is crucial for client-side hooks
+
 import { CheckCircle2 } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import clsx from "clsx";
+import { useState, useRef, useEffect } from 'react'; // Import React hooks
 
 const Services = () => {
+  // Declare state variables and refs at the top of the component
+  const [activetab, setActiveTab] = useState('residential'); // State to track the active tab for the highlight bar
+  const [displayTab, setDisplayTab] = useState('residential'); // State to control which content is actually displayed by Radix Tabs
+  const [isContentVisible, setIsContentVisible] = useState(false); // New state to control the fade-in animation of the *newly displayed* content
+
+  const indicatorRef = useRef<HTMLSpanElement>(null); // Ref for the animated indicator span
+  const [indicatorLeft, setIndicatorLeft] = useState(0); // State for the indicator's left position
+  const [indicatorWidth, setIndicatorWidth] = useState(0); // State for the indicator's width
+
   const services = [
     {
       id: 'residential',
@@ -146,6 +159,38 @@ const Services = () => {
     }
   ];
 
+  // useEffect to calculate and update the indicator's position and width
+  useEffect(() => {
+    const updateIndicator = () => {
+      // Find the button element that corresponds to the active tab by its ID
+      const activeTabElement = document.getElementById(activetab);
+      if (activeTabElement && indicatorRef.current) {
+        // Set the left position and width of the indicator based on the active button
+        setIndicatorLeft(activeTabElement.offsetLeft);
+        setIndicatorWidth(activeTabElement.offsetWidth);
+      }
+    };
+
+    updateIndicator(); // Call once on component mount and when activetab changes
+    window.addEventListener('resize', updateIndicator); // Re-calculate on window resize
+    return () => {
+      window.removeEventListener('resize', updateIndicator); // Clean up event listener
+    };
+  }, [activetab]); // Re-run this effect whenever activetab changes
+
+  // useEffect to manage the content visibility state for entry animation
+  useEffect(() => {
+    // When displayTab changes, the new content mounts.
+    // Set isContentVisible to false initially, then true after a small delay
+    // to trigger the CSS transition for fade-in from its initial state.
+    setIsContentVisible(false); // Immediately set to false when displayTab changes (new content will be initially hidden)
+    const timer = setTimeout(() => {
+      setIsContentVisible(true); // After a tiny delay, set to true to trigger the fade-in transition
+    }, 50); // A small delay to ensure the browser applies the initial opacity-0 state before transitioning
+
+    return () => clearTimeout(timer); // Clean up the timer to prevent memory leaks
+  }, [displayTab]); // Re-run this effect whenever displayTab changes
+
   return (
     <div className="flex flex-col">
       {/* Hero Section */}
@@ -163,22 +208,53 @@ const Services = () => {
       {/* Services Tabs */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <Tabs defaultValue="residential" className="max-w-5xl mx-auto">
-            <TabsList className="grid w-full grid-cols-3">
+          {/* Using Tabs from ui/tabs but customizing the TabsList with custom buttons */}
+          {/* Tabs value is now controlled by 'displayTab' for content visibility */}
+          <Tabs value={displayTab} className="max-w-5xl mx-auto">
+            <div className="relative flex rounded-md overflow-hidden">
               {services.map(service => (
-                <TabsTrigger key={service.id} value={service.id}>
+                <button
+                  key={service.id}
+                  id={service.id} // IMPORTANT: Add id to match `activetab` for `document.getElementById`
+                  onClick={() => {
+                    if (activetab !== service.id) { // Only trigger if clicking a different tab
+                      // Immediately update displayTab and activetab.
+                      // The `useEffect` tied to `displayTab` will then handle the fade-in.
+                      setDisplayTab(service.id);
+                      setActiveTab(service.id);
+                    }
+                  }}
+                  className={clsx(
+                    "flex-1 py-2 text-center relative z-10",
+                    activetab === service.id ? "text-black" : "text-gray-500" //
+                  )}
+                >
                   {service.name}
-                </TabsTrigger>
+                </button>
               ))}
-            </TabsList>
-            
+              {/* The animated indicator span */}
+              <span
+                ref={indicatorRef}
+                className="absolute bottom-0 h-full bg-gray-200 rounded transition-all duration-300 ease-in-out" //
+                style={{ left: indicatorLeft, width: indicatorWidth }}
+              />
+            </div>
+
+            {/* TabsContent now includes animation classes for fade and subtle movement */}
             {services.map(service => (
-              <TabsContent key={service.id} value={service.id} className="mt-8">
+              <TabsContent
+                key={service.id}
+                value={service.id}
+                className={clsx(
+                  "mt-8 transition-all duration-300 ease-in-out", // Apply transition to opacity and transform
+                  isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2" // Fade in from slightly below
+                )}
+              >
                 <div className="mb-6">
                   <h2 className="text-2xl font-bold text-gray-900">{service.name} Cleaning</h2>
                   <p className="text-lg text-gray-600 mt-2">{service.description}</p>
                 </div>
-                
+
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   {service.types.map((type, idx) => (
                     <Card key={idx} className="border-blue-100 hover:shadow-md transition-shadow">
@@ -219,7 +295,7 @@ const Services = () => {
               We follow a detailed process to ensure consistent quality and outstanding results every time.
             </p>
           </div>
-          
+
           <div className="max-w-5xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
@@ -236,7 +312,7 @@ const Services = () => {
                 {
                   number: "03",
                   title: "Cleaning",
-                  description: "Our professional team arrives on time and thoroughly cleans according to your service plan."
+                  description: "Our professionals arrive on time and clean according to your service plan."
                 },
                 {
                   number: "04",
@@ -262,7 +338,7 @@ const Services = () => {
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-            
+
             <div className="space-y-6">
               {[
                 {
