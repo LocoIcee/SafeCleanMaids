@@ -130,11 +130,24 @@ const Quotes = () => {
   return (
     <div className="flex flex-col">
       <style jsx global>{`
-        /* Custom animations for select dropdown */
-        @keyframes slideDownAndFade {
+        /* Dropdown animations */
+        .custom-select-content {
+          animation-duration: 400ms !important;
+          animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+        
+        .custom-select-content[data-state="open"] {
+          animation-name: customSlideIn !important;
+        }
+        
+        .custom-select-content[data-state="closed"] {
+          animation-name: customSlideOut !important;
+        }
+        
+        @keyframes customSlideIn {
           from {
             opacity: 0;
-            transform: translateY(-8px) scale(0.96);
+            transform: translateY(-10px) scale(0.9);
           }
           to {
             opacity: 1;
@@ -142,59 +155,237 @@ const Quotes = () => {
           }
         }
         
-        @keyframes slideUpAndFade {
+        @keyframes customSlideOut {
           from {
             opacity: 1;
             transform: translateY(0) scale(1);
           }
           to {
             opacity: 0;
-            transform: translateY(-8px) scale(0.96);
+            transform: translateY(-10px) scale(0.9);
           }
         }
         
-        /* Apply animations to Radix Select Content */
-        [data-radix-select-content] {
-          animation-duration: 250ms;
-          animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        .custom-select-trigger {
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
         
-        [data-radix-select-content][data-state="open"] {
-          animation-name: slideDownAndFade;
+        .custom-select-trigger[data-state="open"] {
+          background-color: rgb(239 246 255) !important;
+          border-color: rgb(59 130 246) !important;
+          box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1) !important;
         }
         
-        [data-radix-select-content][data-state="closed"] {
-          animation-name: slideUpAndFade;
+        .custom-select-trigger[data-state="open"] svg {
+          transform: rotate(180deg) !important;
         }
         
-        /* Smooth trigger transitions */
-        [data-radix-select-trigger] {
+        .custom-select-trigger svg {
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+        }
+
+        /* Enhanced Tab Animations */
+        .custom-tabs-list {
+          position: relative;
+          background: rgb(243 244 246);
+          padding: 4px;
+          border-radius: 12px;
+        }
+        
+        .custom-tabs-list::before {
+          content: '';
+          position: absolute;
+          top: 4px;
+          left: 4px;
+          width: calc(50% - 4px);
+          height: calc(100% - 8px);
+          background: white;
+          border-radius: 8px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+          transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          z-index: 1;
+        }
+        
+        .custom-tabs-list[data-active="commercial"]::before {
+          transform: translateX(100%);
+        }
+        
+        .custom-tab-trigger {
+          position: relative;
+          z-index: 2;
+          background: transparent !important;
+          border: none;
+          padding: 12px 24px;
+          border-radius: 8px;
+          font-weight: 500;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          color: rgb(107 114 128);
+        }
+        
+        .custom-tab-trigger[data-state="active"] {
+          color: rgb(59 130 246) !important;
+          background: transparent !important;
+          box-shadow: none !important;
+        }
+
+        /* Radio Button Animations */
+        .custom-radio-group {
+          display: grid;
+          gap: 16px;
+        }
+        
+        .custom-radio-item {
+          background: white;
+          border: 2px solid rgb(229 231 235);
+          border-radius: 12px;
+          padding: 16px;
+          cursor: pointer;
           transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
         
-        [data-radix-select-trigger][data-state="open"] {
-          background-color: rgb(239 246 255);
+        .custom-radio-item::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+          transition: left 0.5s ease;
+          pointer-events: none;
+        }
+        
+        .custom-radio-item:hover {
           border-color: rgb(59 130 246);
-          box-shadow: 0 0 0 2px rgb(59 130 246 / 0.2);
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
         }
         
-        /* Smooth icon rotation */
-        [data-radix-select-trigger] [data-radix-select-icon] {
-          transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        .custom-radio-item:hover::before {
+          left: 100%;
         }
         
-        [data-radix-select-trigger][data-state="open"] [data-radix-select-icon] {
-          transform: rotate(180deg);
+        .custom-radio-item[data-state="checked"] {
+          border-color: rgb(59 130 246);
+          background: linear-gradient(135deg, rgb(239 246 255) 0%, white 100%);
+          box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
         }
         
-        /* Item hover animations */
-        [data-radix-select-item] {
-          transition: all 0.15s ease-out;
+        .custom-radio-item[data-state="checked"]::after {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background: linear-gradient(45deg, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
+          pointer-events: none;
+        }
+
+        /* Checkbox Animations */
+        .custom-checkbox-item {
+          background: white;
+          border: 2px solid rgb(229 231 235);
+          border-radius: 8px;
+          padding: 12px;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          position: relative;
+          display: flex;
+          align-items: center;
+          gap: 12px;
         }
         
-        [data-radix-select-item]:hover {
-          background-color: rgb(239 246 255);
-          transform: translateX(2px);
+        .custom-checkbox-item:hover {
+          border-color: rgb(59 130 246);
+          transform: translateX(4px);
+          box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+        
+        .custom-checkbox-item[data-state="checked"] {
+          border-color: rgb(59 130 246);
+          background: linear-gradient(135deg, rgb(239 246 255) 0%, white 100%);
+          transform: translateX(4px);
+        }
+        
+        /* Enhanced checkbox styling */
+        .custom-checkbox {
+          transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+          border: 2px solid rgb(59 130 246);
+          flex-shrink: 0;
+        }
+        
+        .custom-checkbox[data-state="checked"] {
+          background: rgb(59 130 246);
+          transform: scale(1.05);
+        }
+        
+        .custom-checkbox svg {
+          transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Frequency button animations */
+        .custom-frequency-grid {
+          display: grid;
+          gap: 16px;
+        }
+        
+        .custom-frequency-item {
+          background: white;
+          border: 2px solid rgb(229 231 235);
+          border-radius: 8px;
+          padding: 16px;
+          text-align: center;
+          cursor: pointer;
+          transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+          position: relative;
+          overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .custom-frequency-item::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          background: rgba(59, 130, 246, 0.1);
+          border-radius: 50%;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          transform: translate(-50%, -50%);
+          pointer-events: none;
+        }
+        
+        .custom-frequency-item:hover::before {
+          width: 200%;
+          height: 200%;
+        }
+        
+        .custom-frequency-item:hover {
+          border-color: rgb(59 130 246);
+          transform: translateY(-3px);
+          box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
+        }
+        
+        .custom-frequency-item[data-state="checked"] {
+          border-color: rgb(59 130 246);
+          background: linear-gradient(135deg, rgb(239 246 255) 0%, white 100%);
+          box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
+        }
+        
+        .custom-frequency-item[data-state="checked"]::before {
+          width: 100%;
+          height: 100%;
+          background: rgba(59, 130, 246, 0.05);
         }
       `}</style>
       {/* Enhanced Hero Section */}
@@ -322,11 +513,11 @@ const Quotes = () => {
 
             <div className="bg-white p-10 rounded-2xl shadow-xl border border-gray-200">
               <Tabs value={propertyType} onValueChange={setPropertyType} className="w-full">
-                <TabsList className="grid w-full grid-cols-2 mb-10 bg-gray-100 p-1 rounded-xl">
-                  <TabsTrigger value="residential" className="text-base py-3 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-md">
+                <TabsList className="custom-tabs-list grid w-full grid-cols-2 mb-10 bg-gray-100 p-1 rounded-xl" data-active={propertyType}>
+                  <TabsTrigger value="residential" className="custom-tab-trigger text-base py-3 rounded-lg">
                     Residential
                   </TabsTrigger>
-                  <TabsTrigger value="commercial" className="text-base py-3 rounded-lg data-[state=active]:bg-white data-[state=active]:shadow-md">
+                  <TabsTrigger value="commercial" className="custom-tab-trigger text-base py-3 rounded-lg">
                     Commercial
                   </TabsTrigger>
                 </TabsList>
@@ -432,13 +623,13 @@ const Quotes = () => {
                           >
                             <SelectTrigger 
                               id="bedrooms" 
-                              className="h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 transition-all duration-200 bg-white shadow-sm hover:shadow-md"
+                              className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
                             >
                               <SelectValue placeholder="Select bedrooms" />
                             </SelectTrigger>
                             <SelectContent 
-                              className="bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50 min-w-[var(--radix-select-trigger-width)]"
-                              sideOffset={4}
+                              className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
+                              sideOffset={8}
                             >
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="1">1 Bedroom</SelectItem>
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="2">2 Bedrooms</SelectItem>
@@ -456,13 +647,13 @@ const Quotes = () => {
                           >
                             <SelectTrigger 
                               id="bathrooms" 
-                              className="h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 transition-all duration-200 bg-white shadow-sm hover:shadow-md"
+                              className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
                             >
                               <SelectValue placeholder="Select bathrooms" />
                             </SelectTrigger>
                             <SelectContent 
-                              className="bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50 min-w-[var(--radix-select-trigger-width)]"
-                              sideOffset={4}
+                              className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
+                              sideOffset={8}
                             >
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="1">1 Bathroom</SelectItem>
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="2">2 Bathrooms</SelectItem>
@@ -512,13 +703,13 @@ const Quotes = () => {
                           >
                             <SelectTrigger 
                               id="businessType" 
-                              className="h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 transition-all duration-200 bg-white shadow-sm hover:shadow-md"
+                              className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
                             >
                               <SelectValue placeholder="Select business type" />
                             </SelectTrigger>
                             <SelectContent 
-                              className="bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50 min-w-[var(--radix-select-trigger-width)]"
-                              sideOffset={4}
+                              className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
+                              sideOffset={8}
                             >
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="office">Office Space</SelectItem>
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="other">Other</SelectItem>
@@ -542,20 +733,20 @@ const Quotes = () => {
                           <RadioGroup
                             value={formData.serviceType}
                             onValueChange={(value) => handleSelectChange('serviceType', value)}
-                            className="grid grid-cols-1 md:grid-cols-3 gap-4"
+                            className="custom-radio-group grid grid-cols-1 md:grid-cols-3 gap-4"
                           >
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
+                            <Label htmlFor="regular" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'regular' ? 'checked' : 'unchecked'}>
                               <RadioGroupItem value="regular" id="regular" />
-                              <Label htmlFor="regular" className="font-medium">Regular Cleaning</Label>
-                            </div>
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
+                              <span className="font-medium cursor-pointer">Regular Cleaning</span>
+                            </Label>
+                            <Label htmlFor="deep" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'deep' ? 'checked' : 'unchecked'}>
                               <RadioGroupItem value="deep" id="deep" />
-                              <Label htmlFor="deep" className="font-medium">Deep Cleaning</Label>
-                            </div>
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
+                              <span className="font-medium cursor-pointer">Deep Cleaning</span>
+                            </Label>
+                            <Label htmlFor="move" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'move' ? 'checked' : 'unchecked'}>
                               <RadioGroupItem value="move" id="move" />
-                              <Label htmlFor="move" className="font-medium">Move In/Out Cleaning</Label>
-                            </div>
+                              <span className="font-medium cursor-pointer">Move In/Out Cleaning</span>
+                            </Label>
                           </RadioGroup>
                         </div>
 
@@ -564,24 +755,24 @@ const Quotes = () => {
                           <RadioGroup
                             value={formData.frequency}
                             onValueChange={(value) => handleSelectChange('frequency', value)}
-                            className="grid grid-cols-1 md:grid-cols-4 gap-4"
+                            className="custom-frequency-grid grid grid-cols-1 md:grid-cols-4 gap-4"
                           >
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
-                              <RadioGroupItem value="once" id="once" />
-                              <Label htmlFor="once" className="font-medium">One-Time</Label>
-                            </div>
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
-                              <RadioGroupItem value="weekly" id="weekly" />
-                              <Label htmlFor="weekly" className="font-medium">Weekly</Label>
-                            </div>
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
-                              <RadioGroupItem value="biweekly" id="biweekly" />
-                              <Label htmlFor="biweekly" className="font-medium">Bi-Weekly</Label>
-                            </div>
-                            <div className="flex items-center space-x-3 p-4 border border-gray-200 rounded-lg hover:bg-white transition-colors">
-                              <RadioGroupItem value="monthly" id="monthly" />
-                              <Label htmlFor="monthly" className="font-medium">Monthly</Label>
-                            </div>
+                            <Label htmlFor="once" className="custom-frequency-item" data-state={formData.frequency === 'once' ? 'checked' : 'unchecked'}>
+                              <RadioGroupItem value="once" id="once" className="mb-2" />
+                              <span className="font-medium cursor-pointer block">One-Time</span>
+                            </Label>
+                            <Label htmlFor="weekly" className="custom-frequency-item" data-state={formData.frequency === 'weekly' ? 'checked' : 'unchecked'}>
+                              <RadioGroupItem value="weekly" id="weekly" className="mb-2" />
+                              <span className="font-medium cursor-pointer block">Weekly</span>
+                            </Label>
+                            <Label htmlFor="biweekly" className="custom-frequency-item" data-state={formData.frequency === 'biweekly' ? 'checked' : 'unchecked'}>
+                              <RadioGroupItem value="biweekly" id="biweekly" className="mb-2" />
+                              <span className="font-medium cursor-pointer block">Bi-Weekly</span>
+                            </Label>
+                            <Label htmlFor="monthly" className="custom-frequency-item" data-state={formData.frequency === 'monthly' ? 'checked' : 'unchecked'}>
+                              <RadioGroupItem value="monthly" id="monthly" className="mb-2" />
+                              <span className="font-medium cursor-pointer block">Monthly</span>
+                            </Label>
                           </RadioGroup>
                         </div>
 
@@ -590,14 +781,20 @@ const Quotes = () => {
                           <h4 className="text-lg font-medium text-gray-900 mb-4">Additional Services</h4>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {additionalServices.map((service, idx) => (
-                              <div key={idx} className="flex items-center space-x-3 p-3 border border-gray-200 rounded-lg hover:bg-white transition-colors">
+                              <Label 
+                                key={idx} 
+                                htmlFor={`service-${idx}`}
+                                className="custom-checkbox-item flex items-center space-x-3" 
+                                data-state={formData.additionalServices.includes(service) ? 'checked' : 'unchecked'}
+                              >
                                 <Checkbox
                                   id={`service-${idx}`}
                                   checked={formData.additionalServices.includes(service)}
                                   onCheckedChange={(checked) => handleCheckboxChange(service, checked as boolean)}
+                                  className="custom-checkbox"
                                 />
-                                <Label htmlFor={`service-${idx}`} className="text-sm font-medium">{service}</Label>
-                              </div>
+                                <span className="text-sm font-medium cursor-pointer flex-1">{service}</span>
+                              </Label>
                             ))}
                           </div>
                         </div>
