@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CheckCircle, Home as HomeIcon, Building2, Star, MapPin, Clock, CheckCircle2, Calculator, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -735,18 +735,37 @@ const Quotes = () => {
                             onValueChange={(value) => handleSelectChange('serviceType', value)}
                             className="custom-radio-group grid grid-cols-1 md:grid-cols-3 gap-4"
                           >
-                            <Label htmlFor="regular" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'regular' ? 'checked' : 'unchecked'}>
-                              <RadioGroupItem value="regular" id="regular" />
-                              <span className="font-medium cursor-pointer">Regular Cleaning</span>
-                            </Label>
-                            <Label htmlFor="deep" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'deep' ? 'checked' : 'unchecked'}>
-                              <RadioGroupItem value="deep" id="deep" />
-                              <span className="font-medium cursor-pointer">Deep Cleaning</span>
-                            </Label>
-                            <Label htmlFor="move" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'move' ? 'checked' : 'unchecked'}>
-                              <RadioGroupItem value="move" id="move" />
-                              <span className="font-medium cursor-pointer">Move In/Out Cleaning</span>
-                            </Label>
+                            {propertyType === 'residential' ? (
+                              <>
+                                <Label htmlFor="regular" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'regular' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="regular" id="regular" />
+                                  <span className="font-medium cursor-pointer">Regular Cleaning</span>
+                                </Label>
+                                <Label htmlFor="deep" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'deep' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="deep" id="deep" />
+                                  <span className="font-medium cursor-pointer">Deep Cleaning</span>
+                                </Label>
+                                <Label htmlFor="move" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'move' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="move" id="move" />
+                                  <span className="font-medium cursor-pointer">Move In/Out Cleaning</span>
+                                </Label>
+                              </>
+                            ) : (
+                              <>
+                                <Label htmlFor="office" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'office' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="office" id="office" />
+                                  <span className="font-medium cursor-pointer">Office Cleaning</span>
+                                </Label>
+                                <Label htmlFor="construction" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'construction' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="construction" id="construction" />
+                                  <span className="font-medium cursor-pointer">Post-Construction</span>
+                                </Label>
+                                <Label htmlFor="event" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'event' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="event" id="event" />
+                                  <span className="font-medium cursor-pointer">Event Cleaning</span>
+                                </Label>
+                              </>
+                            )}
                           </RadioGroup>
                         </div>
 
