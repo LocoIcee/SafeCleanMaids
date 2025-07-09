@@ -55,9 +55,12 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <Button className="bg-blue-600 hover:bg-blue-700">
+            <Link
+              href="/quotes">
+              <Button className="bg-blue-600 hover:bg-blue-700">
               Get Free Quote
             </Button>
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
@@ -91,9 +94,11 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <Button className="bg-blue-600 hover:bg-blue-700 w-full mt-2">
-              Get Free Quote
-            </Button>
+            <Link href="/quotes" onClick={() => setIsMenuOpen(false)}>
+              <Button className="bg-blue-600 hover:bg-blue-700 w-full mt-2">
+                Get Free Quote
+              </Button>
+            </Link>
           </nav>
         )}
       </div>
