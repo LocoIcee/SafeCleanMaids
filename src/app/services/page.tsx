@@ -1,6 +1,6 @@
 'use client'; // This directive is crucial for client-side hooks
 
-import { CheckCircle2 } from 'lucide-react';
+import { CheckCircle2, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -193,25 +193,37 @@ const Services = () => {
 
   return (
     <div className="flex flex-col">
-      {/* Hero Section */}
-      <section className="bg-blue-600 py-20 text-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-4xl font-bold mb-4">Our Cleaning Services</h1>
-            <p className="text-xl text-blue-100">
+      {/* Enhanced Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 py-24 text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-white/5 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 left-1/4 w-16 h-16 bg-white/5 rounded-full blur-xl animate-pulse delay-500"></div>
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
+            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
+              <Sparkles className="h-5 w-5 text-yellow-300" />
+              <span className="text-sm font-medium">Professional Cleaning Services</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-blue-100 bg-clip-text text-transparent">
+              Our Cleaning Services
+            </h1>
+            <p className="text-xl md:text-2xl text-blue-100 leading-relaxed">
               Professional cleaning services tailored to your specific needs. From residential to commercial, we have you covered.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Services Tabs */}
-      <section className="py-16 bg-white">
+      {/* Enhanced Services Tabs */}
+      <section className="py-24 bg-gradient-to-b from-slate-50 to-white">
         <div className="container mx-auto px-4">
           {/* Using Tabs from ui/tabs but customizing the TabsList with custom buttons */}
           {/* Tabs value is now controlled by 'displayTab' for content visibility */}
-          <Tabs value={displayTab} className="max-w-5xl mx-auto">
-            <div className="relative flex rounded-md overflow-hidden">
+          <Tabs value={displayTab} className="max-w-6xl mx-auto">
+            <div className="relative flex rounded-2xl overflow-hidden bg-gray-100 p-2 mb-12 shadow-lg">
               {services.map(service => (
                 <button
                   key={service.id}
@@ -225,8 +237,8 @@ const Services = () => {
                     }
                   }}
                   className={clsx(
-                    "flex-1 py-2 text-center relative z-10",
-                    activetab === service.id ? "text-black" : "text-gray-500" //
+                    "flex-1 py-4 px-6 text-center relative z-10 font-semibold text-lg transition-all duration-300",
+                    activetab === service.id ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
                   )}
                 >
                   {service.name}
@@ -235,8 +247,8 @@ const Services = () => {
               {/* The animated indicator span */}
               <span
                 ref={indicatorRef}
-                className="absolute bottom-0 h-full bg-gray-200 rounded transition-all duration-300 ease-in-out" //
-                style={{ left: indicatorLeft, width: indicatorWidth }}
+                className="absolute top-2 h-[calc(100%-16px)] bg-white rounded-xl shadow-lg transition-all duration-300 ease-in-out border border-blue-100"
+                style={{ left: indicatorLeft + 8, width: indicatorWidth - 16 }}
               />
             </div>
 
@@ -246,34 +258,36 @@ const Services = () => {
                 key={service.id}
                 value={service.id}
                 className={clsx(
-                  "mt-8 transition-all duration-300 ease-in-out", // Apply transition to opacity and transform
-                  isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2" // Fade in from slightly below
+                  "transition-all duration-500 ease-in-out", // Apply transition to opacity and transform
+                  isContentVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4" // Fade in from slightly below
                 )}
               >
-                <div className="mb-6">
-                  <h2 className="text-2xl font-bold text-gray-900">{service.name} Cleaning</h2>
-                  <p className="text-lg text-gray-600 mt-2">{service.description}</p>
+                <div className="mb-12 text-center">
+                  <h2 className="text-4xl font-bold text-gray-900 mb-4">{service.name} Cleaning</h2>
+                  <p className="text-xl text-gray-600 leading-relaxed max-w-3xl mx-auto">{service.description}</p>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {service.types.map((type, idx) => (
-                    <Card key={idx} className="border-blue-100 hover:shadow-md transition-shadow">
-                      <CardHeader className="pb-2">
-                        <CardTitle>{type.name}</CardTitle>
-                        <CardDescription className="text-lg font-semibold text-blue-600">{type.price}</CardDescription>
+                    <Card key={idx} className="border-2 border-gray-200 hover:border-blue-300 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group h-full flex flex-col">
+                      <CardHeader className="pb-4">
+                        <CardTitle className="text-2xl text-gray-900">{type.name}</CardTitle>
+                        <CardDescription className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">{type.price}</CardDescription>
                       </CardHeader>
-                      <CardContent>
-                        <ul className="space-y-2">
+                      <CardContent className="flex-grow">
+                        <ul className="space-y-3">
                           {type.features.map((feature, i) => (
-                            <li key={i} className="flex items-start gap-2">
-                              <CheckCircle2 className="h-5 w-5 text-blue-500 shrink-0 mt-0.5" />
-                              <span className="text-sm">{feature}</span>
+                            <li key={i} className="flex items-start gap-3">
+                              <div className="flex-shrink-0 w-6 h-6 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center mt-0.5">
+                                <CheckCircle2 className="h-4 w-4 text-white" />
+                              </div>
+                              <span className="text-gray-700 leading-relaxed">{feature}</span>
                             </li>
                           ))}
                         </ul>
                       </CardContent>
-                      <CardFooter>
-                        <Button asChild className="w-full">
+                      <CardFooter className="pt-6">
+                        <Button asChild className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 shadow-lg hover:shadow-xl transform hover:-translate-y-1 transition-all duration-300">
                           <Link href="/contact">Book Now</Link>
                         </Button>
                       </CardFooter>
@@ -286,17 +300,17 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Process Section */}
-      <section className="py-16 bg-gray-50">
+      {/* Enhanced Process Section */}
+      <section className="py-24 bg-gradient-to-b from-gray-50 to-gray-100">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Cleaning Process</h2>
-            <p className="text-lg text-gray-600">
+          <div className="max-w-4xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Our Cleaning Process</h2>
+            <p className="text-xl text-gray-600 leading-relaxed">
               We follow a detailed process to ensure consistent quality and outstanding results every time.
             </p>
           </div>
 
-          <div className="max-w-5xl mx-auto">
+          <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                 {
@@ -320,12 +334,12 @@ const Services = () => {
                   description: "We perform a final check to ensure everything meets our high-quality standards."
                 },
               ].map((step, idx) => (
-                <div key={idx} className="flex flex-col items-center text-center">
-                  <div className="w-16 h-16 rounded-full bg-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-4">
+                <div key={idx} className="flex flex-col items-center text-center group">
+                  <div className="w-20 h-20 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 text-white flex items-center justify-center text-2xl font-bold mb-6 shadow-lg group-hover:shadow-xl group-hover:from-blue-600 group-hover:to-blue-700 transform group-hover:-translate-y-2 transition-all duration-300">
                     {step.number}
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
+                  <h3 className="text-2xl font-bold mb-4 text-gray-900">{step.title}</h3>
+                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
                 </div>
               ))}
             </div>
@@ -333,13 +347,13 @@ const Services = () => {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="py-16 bg-white">
+      {/* Enhanced FAQ Section */}
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl font-bold text-center mb-16 text-gray-900">Frequently Asked Questions</h2>
 
-            <div className="space-y-6">
+            <div className="space-y-8">
               {[
                 {
                   q: "How often should I schedule cleaning services?",
@@ -362,25 +376,32 @@ const Services = () => {
                   a: "Absolutely! We understand that each home and business has unique cleaning requirements. We offer customized cleaning plans tailored specifically to your needs and preferences."
                 }
               ].map((faq, idx) => (
-                <div key={idx} className="border-b border-gray-200 pb-6">
-                  <h3 className="text-xl font-semibold mb-2">{faq.q}</h3>
-                  <p className="text-gray-600">{faq.a}</p>
-                </div>
+                <Card key={idx} className="border-2 border-gray-200 hover:border-blue-300 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                  <CardContent className="p-8">
+                    <h3 className="text-2xl font-bold mb-4 text-gray-900">{faq.q}</h3>
+                    <p className="text-gray-600 text-lg leading-relaxed">{faq.a}</p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-3xl mx-auto">
-            <h2 className="text-3xl font-bold mb-6">Ready to experience our cleaning services?</h2>
-            <p className="text-xl text-blue-100 mb-8">
+      {/* Enhanced CTA Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/10"></div>
+        <div className="absolute top-0 left-0 w-full h-full">
+          <div className="absolute top-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-xl animate-pulse"></div>
+          <div className="absolute bottom-10 left-10 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse delay-1000"></div>
+        </div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to experience our cleaning services?</h2>
+            <p className="text-xl md:text-2xl text-blue-100 mb-10 leading-relaxed">
               Book your cleaning appointment today and enjoy a spotless environment.
             </p>
-            <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
+            <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50 px-8 py-4 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:-translate-y-1 transition-all duration-300">
               <Link href="/contact">Schedule Now</Link>
             </Button>
           </div>
