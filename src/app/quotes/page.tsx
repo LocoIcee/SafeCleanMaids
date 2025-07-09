@@ -511,7 +511,7 @@ const Quotes = () => {
               </p>
             </div>
 
-            <div className="bg-white p-10 rounded-2xl shadow-xl border border-gray-200">
+            <div className="bg-white p-10 rounded-2xl shadow-xl border border-gray-200 fade-in-up">
               <Tabs value={propertyType} onValueChange={setPropertyType} className="w-full">
                 <TabsList className="custom-tabs-list grid w-full grid-cols-2 mb-10 bg-gray-100 p-1 rounded-xl" data-active={propertyType}>
                   <TabsTrigger value="residential" className="custom-tab-trigger text-base py-3 rounded-lg">
@@ -859,7 +859,7 @@ const Quotes = () => {
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {pricingFactors.map((factor, idx) => (
-                <div key={idx} className="group text-center hover:transform hover:-translate-y-2 transition-all duration-300">
+                <div key={idx} className="group text-center hover:transform hover:-translate-y-2 transition-all duration-300 fade-in-up">
                   <div className="w-20 h-20 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 text-white flex items-center justify-center mb-6 mx-auto shadow-lg group-hover:shadow-xl group-hover:from-blue-600 group-hover:to-blue-700 transition-all duration-300">
                     {factor.icon}
                   </div>
@@ -873,14 +873,14 @@ const Quotes = () => {
       </section>
 
       {/* Enhanced CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-600 via-blue-700 to-blue-800 text-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-gradient-to-r from-blue-600 via-blue-700 to-blue-800 via-blue-500 to-blue-400 text-white relative overflow-hidden">
         <div className="absolute inset-0 bg-black/10"></div>
         <div className="absolute top-0 left-0 w-full h-full">
           <div className="absolute top-10 right-10 w-32 h-32 bg-white/5 rounded-full blur-xl animate-pulse"></div>
           <div className="absolute bottom-10 left-10 w-24 h-24 bg-white/5 rounded-full blur-xl animate-pulse delay-1000"></div>
         </div>
         <div className="container mx-auto px-4 text-center relative z-10">
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto fade-in-up">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to get started?</h2>
             <p className="text-xl md:text-2xl text-blue-100 mb-10 leading-relaxed">
               Request your quote today and experience the Safe Clean Maids difference.
@@ -894,5 +894,4 @@ const Quotes = () => {
     </div>
   );
 };
-
 export default Quotes;
