@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { CheckCircle, Home as HomeIcon, Building2, Star, MapPin, Clock, CheckCircle2, Calculator, Sparkles } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -20,6 +20,7 @@ interface FormData {
   sqft: string;
   bedrooms: string;
   bathrooms: string;
+  buildingType: string; // Added buildingType to FormData
   serviceType: string;
   frequency: string;
   additionalServices: string[];
@@ -37,6 +38,7 @@ const Quotes = () => {
     sqft: '',
     bedrooms: '',
     bathrooms: '',
+    buildingType: '', // Initialized buildingType
     serviceType: 'regular',
     frequency: 'once',
     additionalServices: [],
@@ -110,7 +112,7 @@ const Quotes = () => {
     e.preventDefault();
     console.log('Form submitted:', { propertyType, ...formData });
     alert('Thank you for your request! We will contact you shortly with a custom quote.');
-    
+
     setFormData({
       name: '',
       email: '',
@@ -119,6 +121,7 @@ const Quotes = () => {
       sqft: '',
       bedrooms: '2',
       bathrooms: '1',
+      buildingType: '', // Reset buildingType on submit
       serviceType: 'regular',
       frequency: 'once',
       additionalServices: [],
@@ -135,15 +138,15 @@ const Quotes = () => {
           animation-duration: 400ms !important;
           animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-        
+
         .custom-select-content[data-state="open"] {
           animation-name: customSlideIn !important;
         }
-        
+
         .custom-select-content[data-state="closed"] {
           animation-name: customSlideOut !important;
         }
-        
+
         @keyframes customSlideIn {
           from {
             opacity: 0;
@@ -154,7 +157,7 @@ const Quotes = () => {
             transform: translateY(0) scale(1);
           }
         }
-        
+
         @keyframes customSlideOut {
           from {
             opacity: 1;
@@ -165,21 +168,21 @@ const Quotes = () => {
             transform: translateY(-10px) scale(0.9);
           }
         }
-        
+
         .custom-select-trigger {
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
-        
+
         .custom-select-trigger[data-state="open"] {
           background-color: rgb(239 246 255) !important;
           border-color: rgb(59 130 246) !important;
           box-shadow: 0 0 0 3px rgb(59 130 246 / 0.1) !important;
         }
-        
+
         .custom-select-trigger[data-state="open"] svg {
           transform: rotate(180deg) !important;
         }
-        
+
         .custom-select-trigger svg {
           transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
         }
@@ -191,7 +194,7 @@ const Quotes = () => {
           padding: 4px;
           border-radius: 12px;
         }
-        
+
         .custom-tabs-list::before {
           content: '';
           position: absolute;
@@ -205,11 +208,11 @@ const Quotes = () => {
           transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           z-index: 1;
         }
-        
+
         .custom-tabs-list[data-active="commercial"]::before {
           transform: translateX(100%);
         }
-        
+
         .custom-tab-trigger {
           position: relative;
           z-index: 2;
@@ -221,7 +224,7 @@ const Quotes = () => {
           transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           color: rgb(107 114 128);
         }
-        
+
         .custom-tab-trigger[data-state="active"] {
           color: rgb(59 130 246) !important;
           background: transparent !important;
@@ -233,7 +236,7 @@ const Quotes = () => {
           display: grid;
           gap: 16px;
         }
-        
+
         .custom-radio-item {
           background: white;
           border: 2px solid rgb(229 231 235);
@@ -247,7 +250,7 @@ const Quotes = () => {
           align-items: center;
           gap: 12px;
         }
-        
+
         .custom-radio-item::before {
           content: '';
           position: absolute;
@@ -259,23 +262,23 @@ const Quotes = () => {
           transition: left 0.5s ease;
           pointer-events: none;
         }
-        
+
         .custom-radio-item:hover {
           border-color: rgb(59 130 246);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
         }
-        
+
         .custom-radio-item:hover::before {
           left: 100%;
         }
-        
+
         .custom-radio-item[data-state="checked"] {
           border-color: rgb(59 130 246);
           background: linear-gradient(135deg, rgb(239 246 255) 0%, white 100%);
           box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
         }
-        
+
         .custom-radio-item[data-state="checked"]::after {
           content: '';
           position: absolute;
@@ -300,31 +303,31 @@ const Quotes = () => {
           align-items: center;
           gap: 12px;
         }
-        
+
         .custom-checkbox-item:hover {
           border-color: rgb(59 130 246);
           transform: translateX(4px);
           box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
         }
-        
+
         .custom-checkbox-item[data-state="checked"] {
           border-color: rgb(59 130 246);
           background: linear-gradient(135deg, rgb(239 246 255) 0%, white 100%);
           transform: translateX(4px);
         }
-        
+
         /* Enhanced checkbox styling */
         .custom-checkbox {
           transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
           border: 2px solid rgb(59 130 246);
           flex-shrink: 0;
         }
-        
+
         .custom-checkbox[data-state="checked"] {
           background: rgb(59 130 246);
           transform: scale(1.05);
         }
-        
+
         .custom-checkbox svg {
           transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -334,7 +337,7 @@ const Quotes = () => {
           display: grid;
           gap: 16px;
         }
-        
+
         .custom-frequency-item {
           background: white;
           border: 2px solid rgb(229 231 235);
@@ -350,7 +353,7 @@ const Quotes = () => {
           align-items: center;
           justify-content: center;
         }
-        
+
         .custom-frequency-item::before {
           content: '';
           position: absolute;
@@ -364,24 +367,24 @@ const Quotes = () => {
           transform: translate(-50%, -50%);
           pointer-events: none;
         }
-        
+
         .custom-frequency-item:hover::before {
           width: 200%;
           height: 200%;
         }
-        
+
         .custom-frequency-item:hover {
           border-color: rgb(59 130 246);
           transform: translateY(-3px);
           box-shadow: 0 6px 20px rgba(59, 130, 246, 0.15);
         }
-        
+
         .custom-frequency-item[data-state="checked"] {
           border-color: rgb(59 130 246);
           background: linear-gradient(135deg, rgb(239 246 255) 0%, white 100%);
           box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
         }
-        
+
         .custom-frequency-item[data-state="checked"]::before {
           width: 100%;
           height: 100%;
@@ -392,26 +395,176 @@ const Quotes = () => {
         label:has(+ input[required]) {
           position: relative;
         }
-        
+
         label:has(+ input[required])::after {
           content: ' *';
           color: rgb(239 68 68);
           font-weight: 600;
         }
-        
+
         /* Form validation styles */
-        input:invalid {
-          border-color: rgb(239 68 68);
+        input:invalid:not(:placeholder-shown) {
+          border-color: rgb(239 68 68) !important;
+          box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.1) !important;
         }
-        
-        input:invalid:focus {
-          ring-color: rgb(239 68 68);
-          border-color: rgb(239 68 68);
+
+        input:invalid:not(:placeholder-shown):focus {
+          ring-color: rgb(239 68 68) !important;
+          border-color: rgb(239 68 68) !important;
         }
-        
+
+        /* Required field visual indicator */
+        .required-field {
+          border-left: 3px solid rgb(59 130 246);
+          padding-left: 8px;
+        }
+
         .required-indicator {
           color: rgb(239 68 68);
           font-weight: 600;
+          margin-left: 2px;
+        }
+
+        /* Custom validation message */
+        .validation-error {
+          color: rgb(239 68 68);
+          font-size: 0.875rem;
+          margin-top: 4px;
+        }
+
+        /* Enhanced Date Input Styling */
+        input[type="date"] {
+          position: relative;
+          background: white;
+          border: 2px solid rgb(209 213 219);
+          border-radius: 8px;
+          padding: 12px 16px;
+          font-size: 16px;
+          transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+          color: rgb(55 65 81);
+          font-family: inherit;
+        }
+
+        input[type="date"]:hover {
+          border-color: rgb(59 130 246);
+          box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+        }
+
+        input[type="date"]:focus {
+          outline: none;
+          border-color: rgb(59 130 246);
+          box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+          background-color: rgb(249 250 251);
+        }
+
+        /* Calendar icon styling */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          background: none;
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4' width='18' height='18' rx='2' ry='2'%3E%3C/rect%3E%3Cline x1='16' y1='2' x2='16' y2='6'%3E%3C/line%3E%3Cline x1='8' y1='2' x2='8' y2='6'%3E%3C/line%3E%3Cline x1='3' y1='10' x2='21' y2='10'%3E%3C/line%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 20px;
+          width: 20px;
+          height: 20px;
+          cursor: pointer;
+          margin-left: 8px;
+          opacity: 0.7;
+          transition: all 0.2s ease;
+        }
+
+        input[type="date"]::-webkit-calendar-picker-indicator:hover {
+          opacity: 1;
+          transform: scale(1.1);
+        }
+
+        /* Enhanced date input placeholder */
+        input[type="date"]:invalid {
+          color: rgb(156 163 175);
+        }
+
+        input[type="date"]:focus:invalid {
+          color: rgb(55 65 81);
+        }
+
+        /* Custom calendar dropdown styling (limited browser support) */
+        input[type="date"]::-webkit-datetime-edit {
+          padding: 0;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+          padding: 0;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-text {
+          color: rgb(107 114 128);
+          padding: 0 4px;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-month-field,
+        input[type="date"]::-webkit-datetime-edit-day-field,
+        input[type="date"]::-webkit-datetime-edit-year-field {
+          color: rgb(55 65 81);
+          font-weight: 500;
+          padding: 2px 4px;
+          border-radius: 4px;
+          transition: all 0.2s ease;
+        }
+
+        input[type="date"]::-webkit-datetime-edit-month-field:focus,
+        input[type="date"]::-webkit-datetime-edit-day-field:focus,
+        input[type="date"]::-webkit-datetime-edit-year-field:focus {
+          background: rgb(239 246 255);
+          color: rgb(37 99 235);
+          outline: none;
+        }
+
+        /* Firefox date input styling */
+        input[type="date"]::-moz-focus-inner {
+          border: 0;
+          padding: 0;
+        }
+
+        /* Enhanced date input container */
+        .date-input-container {
+          position: relative;
+        }
+
+        .date-input-container::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: 8px;
+          background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          pointer-events: none;
+          z-index: -1;
+        }
+
+        .date-input-container:hover::before {
+          opacity: 1;
+        }
+
+        /* Custom date label enhancement */
+        .date-label {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 8px;
+          font-weight: 500;
+          color: rgb(55 65 81);
+        }
+
+        .date-label::before {
+          content: '';
+          width: 4px;
+          height: 4px;
+          background: rgb(59 130 246);
+          border-radius: 50%;
+          opacity: 0.7;
         }
       `}</style>
       {/* Enhanced Hero Section */}
@@ -548,7 +701,7 @@ const Quotes = () => {
                   </TabsTrigger>
                 </TabsList>
 
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} noValidate>
                   <div className="space-y-10">
                     {/* Enhanced Contact Information */}
                     <div className="space-y-6">
@@ -597,15 +750,17 @@ const Quotes = () => {
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label htmlFor="preferredDate" className="text-base font-medium">Preferred Date</Label>
-                          <Input
-                            id="preferredDate"
-                            name="preferredDate"
-                            type="date"
-                            value={formData.preferredDate}
-                            onChange={handleInputChange}
-                            className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
-                          />
+                          <Label htmlFor="preferredDate" className="date-label text-base font-medium">Preferred Date</Label>
+                          <div className="date-input-container">
+                            <Input
+                              id="preferredDate"
+                              name="preferredDate"
+                              type="date"
+                              value={formData.preferredDate}
+                              onChange={handleInputChange}
+                              className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500 w-full"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -648,13 +803,13 @@ const Quotes = () => {
                             onValueChange={(value) => handleSelectChange('bedrooms', value)}
                             required
                           >
-                            <SelectTrigger 
-                              id="bedrooms" 
+                            <SelectTrigger
+                              id="bedrooms"
                               className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
                             >
                               <SelectValue placeholder="Select number of bedrooms" />
                             </SelectTrigger>
-                            <SelectContent 
+                            <SelectContent
                               className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
                               sideOffset={8}
                             >
@@ -673,13 +828,13 @@ const Quotes = () => {
                             onValueChange={(value) => handleSelectChange('bathrooms', value)}
                             required
                           >
-                            <SelectTrigger 
-                              id="bathrooms" 
+                            <SelectTrigger
+                              id="bathrooms"
                               className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
                             >
                               <SelectValue placeholder="Select number of bathrooms" />
                             </SelectTrigger>
-                            <SelectContent 
+                            <SelectContent
                               className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
                               sideOffset={8}
                             >
@@ -687,6 +842,32 @@ const Quotes = () => {
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="2">2 Bathrooms</SelectItem>
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="3">3 Bathrooms</SelectItem>
                               <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="4+">4+ Bathrooms</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="buildingType" className="text-base font-medium">Property Type</Label>
+                          <Select
+                            value={formData.buildingType}
+                            onValueChange={(value) => handleSelectChange('buildingType', value)}
+                          >
+                            <SelectTrigger
+                              id="buildingType"
+                              className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
+                            >
+                              <SelectValue placeholder="Select property type" />
+                            </SelectTrigger>
+                            <SelectContent
+                              className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
+                              sideOffset={8}
+                            >
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="single-family">Single Family Home</SelectItem>
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="townhouse">Townhouse</SelectItem>
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="condominium">Condominium</SelectItem>
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="apartment">Apartment</SelectItem>
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="duplex">Duplex</SelectItem>
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="mobile-home">Mobile Home</SelectItem>
+                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="other">Other</SelectItem>
                             </SelectContent>
                           </Select>
                         </div>
@@ -725,27 +906,14 @@ const Quotes = () => {
                         </div>
                         <div className="space-y-2">
                           <Label htmlFor="businessType" className="text-base font-medium">Business Type</Label>
-                          <Select
-                            value={formData.bedrooms}
-                            onValueChange={(value) => handleSelectChange('bedrooms', value)}
-                          >
-                            <SelectTrigger 
-                              id="businessType" 
-                              className="custom-select-trigger h-12 border-2 border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 hover:border-blue-400 bg-white shadow-sm hover:shadow-md"
-                            >
-                              <SelectValue placeholder="Select your business type" />
-                            </SelectTrigger>
-                            <SelectContent 
-                              className="custom-select-content bg-white border-2 border-gray-200 rounded-lg shadow-xl z-50"
-                              sideOffset={8}
-                            >
-                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="office">Office Space</SelectItem>
-                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="post-construction">Post-Construction</SelectItem>
-                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="event">Event Cleaning</SelectItem>
-                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="airbnb">AirBnB/Vrbo</SelectItem>
-                              <SelectItem className="hover:bg-blue-50 focus:bg-blue-50 transition-all duration-150 cursor-pointer py-3 rounded-md mx-1" value="other">Other</SelectItem>
-                            </SelectContent>
-                          </Select>
+                          <Input
+                            id="businessType"
+                            name="buildingType"
+                            placeholder="e.g., Office, Construction, Airbnb, etc."
+                            value={formData.buildingType}
+                            onChange={handleInputChange}
+                            className="h-12 border-gray-300 focus:border-blue-500 focus:ring-blue-500"
+                          />
                         </div>
                       </div>
                     </TabsContent>
@@ -764,7 +932,9 @@ const Quotes = () => {
                           <RadioGroup
                             value={formData.serviceType}
                             onValueChange={(value) => handleSelectChange('serviceType', value)}
-                            className="custom-radio-group grid grid-cols-1 md:grid-cols-3 gap-4"
+                            className={`custom-radio-group grid grid-cols-1 gap-4 ${
+                              propertyType === 'residential' ? 'md:grid-cols-3' : 'md:grid-cols-2 lg:grid-cols-3'
+                            }`}
                           >
                             {propertyType === 'residential' ? (
                               <>
@@ -794,6 +964,18 @@ const Quotes = () => {
                                 <Label htmlFor="event" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'event' ? 'checked' : 'unchecked'}>
                                   <RadioGroupItem value="event" id="event" />
                                   <span className="font-medium cursor-pointer">Event Cleaning</span>
+                                </Label>
+                                <Label htmlFor="regular-commercial" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'regular' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="regular" id="regular-commercial" />
+                                  <span className="font-medium cursor-pointer">Regular Cleaning</span>
+                                </Label>
+                                <Label htmlFor="deep-commercial" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'deep' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="deep" id="deep-commercial" />
+                                  <span className="font-medium cursor-pointer">Deep Cleaning</span>
+                                </Label>
+                                <Label htmlFor="move-commercial" className="custom-radio-item flex items-center space-x-3" data-state={formData.serviceType === 'move' ? 'checked' : 'unchecked'}>
+                                  <RadioGroupItem value="move" id="move-commercial" />
+                                  <span className="font-medium cursor-pointer">Move In/Out Cleaning</span>
                                 </Label>
                               </>
                             )}
@@ -831,10 +1013,10 @@ const Quotes = () => {
                           <h4 className="text-lg font-medium text-gray-900 mb-4">Additional Services</h4>
                           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             {additionalServices.map((service, idx) => (
-                              <Label 
-                                key={idx} 
+                              <Label
+                                key={idx}
                                 htmlFor={`service-${idx}`}
-                                className="custom-checkbox-item flex items-center space-x-3" 
+                                className="custom-checkbox-item flex items-center space-x-3"
                                 data-state={formData.additionalServices.includes(service) ? 'checked' : 'unchecked'}
                               >
                                 <Checkbox
